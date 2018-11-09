@@ -12,7 +12,7 @@ create(Selector, ParameterList) ->
 	% not possible. Returns {ok, ResTyp_Pid}. 
 	apply(Selector, create, ParameterList).
 	
-	(ResTyp_Pid, ResInst_Pid, TypeOptions) -> 
+	get_initial_state(ResTyp_Pid, ResInst_Pid, TypeOptions) -> 
 	msg:get(ResTyp_Pid, initial_state, [ResInst_Pid, TypeOptions]). 
 %	{ok, State} = resource_type:get_initial_state(ResTyp_Pid, self(), []),
 	
