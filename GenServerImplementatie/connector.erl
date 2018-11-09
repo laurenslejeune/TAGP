@@ -1,16 +1,23 @@
 -module(connector).
+%-behaviour(gen_server).
 
+%-export([start_link/0])
 -export([create/2, connect/2, disconnect/1, discard/1]).
 -export([get_connected/1, get_ResInst/1, get_type/1]).
 
 -export([init/2, test/0]). % for internal use only. 
+
+%start_link() ->
+%    gen_server:start_link({local, connector_server},?MODULE, [], []).
 
 create(ResInst_Pid, ConnectTyp_Pid) -> 
 	spawn(?MODULE, init, [ResInst_Pid, ConnectTyp_Pid]).
 
 init(ResInst_Pid, ConnectTyp_Pid) -> 
 	survivor:entry(connector_created), 
-	loop(ResInst_Pid, disconnected, ConnectTyp_Pid).
+	State = {ResInst_Pid, disconnected, ConnectTyp_Pid};
+	%{ok,State}.
+	loop(State).
 
 connect(Connector_Pid, C_Pid) ->
 	Connector_Pid ! {connect, C_Pid}.

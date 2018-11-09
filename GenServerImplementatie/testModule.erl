@@ -5,6 +5,7 @@
 start() ->
 	survivor:start(),
 	observer:start(),
+	resource_instance:start_link(),
 	{ok, PipeTypePID} = resource_type:create(pipeTyp,[]),
 	{ok,Pipe1InstPID} = resource_instance:create(pipeInst,[self(),PipeTypePID]),
 	{ok,Pipe2InstPID} = resource_instance:create(pipeInst,[self(),PipeTypePID]),
