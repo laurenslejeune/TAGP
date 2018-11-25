@@ -5,12 +5,15 @@
 start() ->
 	survivor:start(),
 	observer:start(),
-	resource_instance:start_link(),
-	{ok, PipeTypePID} = pipeTyp:start_link(),
-%	{ok, PipeTypePID} = resource_type:create(pipeTyp,[]),
-	{ok,Pipe1InstPID} = resource_instance:create(pipeInst,[self(),PipeTypePID]),
-	{ok,Pipe2InstPID} = resource_instance:create(pipeInst,[self(),PipeTypePID]),
-	{ok,Pipe3InstPID} = resource_instance:create(pipeInst,[self(),PipeTypePID]),
+	
+	systemSupervisor:start_link(),
+	
+	% resource_instance:start_link(),
+	% {ok, PipeTypePID} = pipeTyp:start_link(),
+% %	{ok, PipeTypePID} = resource_type:create(pipeTyp,[]),
+	% {ok,Pipe1InstPID} = resource_instance:create(pipeInst,[self(),PipeTypePID]),
+	% {ok,Pipe2InstPID} = resource_instance:create(pipeInst,[self(),PipeTypePID]),
+	% {ok,Pipe3InstPID} = resource_instance:create(pipeInst,[self(),PipeTypePID]),
 	{ok,[P1C1,P1C2]} = resource_instance:list_connectors(Pipe1InstPID),
 	{ok,[P2C1,P2C2]} = resource_instance:list_connectors(Pipe2InstPID),
 	{ok,[P3C1,P3C2]} = resource_instance:list_connectors(Pipe3InstPID),

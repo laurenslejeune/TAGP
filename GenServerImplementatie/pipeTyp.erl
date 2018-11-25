@@ -32,13 +32,20 @@ handle_call({initial_state, [ResInst_Pid, TypeOptions], _Ref},_From,_State) ->
 handle_call({connections_list, State, _Ref},_From,_State) ->
 	#{cList := C_List} = State, 
 	{reply,C_List, []};
-	
+
 handle_call({locations_list, State, _Ref}, _From,_State) ->
 	#{chambers := L_List} = State,
-	{reply, L_List, []}.
+	{reply, L_List, []}.	
+	
+handle_cast(stop,_State) ->
+	{stop,normal,ok,[]};
+	%gen_server:stop(ServerRef),
+
 	
 handle_cast(something,_State) ->
-	{noreply,[]}.
+	{noreply,[]}.	
+
+
 	
 %loop() -> 
 %	receive
